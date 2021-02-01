@@ -5,8 +5,253 @@
   --color-yellow: #fbbe28;
   --color-pink: #fd7f84;
   --color-light-grey: #dfdfdf;
+  --color-primary: rgb(54, 112, 199);
+  --color-light: #f4f4f4;
+  --color-dark: #333;
+  --color-warning: rgb(99, 36, 36);
+
+  /* font size */
+  --font-large: 2rem;
+  --font-regular: 1.5rem;
+  --font-small: 1.2rem;
+  --font-xsmall: 1rem;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 300;
+  font-size: var(--font-regular);
+  background-color: var(--color-primary);
+  color: var(--color-light);
+
+  display: grid;
+  grid:
+    "header header header header " auto
+    "...... lists  active ......" auto /
+    1fr minmax(100px, 300px) minmax(250px, 500px) 1fr;
 }
 
-body {
-  font-family: "Open Sans", sans-serif;
+.title {
+  grid-area: header;
+  text-align: center;
+  font-size: calc(5vw + 2rem);
+  font-weight: 900;
+  color: rgb(0, 0, 0, 0.1);
+  letter-spacing: 1px;
+  margin: -0.2em 0 0.5em;
+}
+
+.all-tasks {
+  grid-area: lists;
+}
+
+.task-list {
+  line-height: 1.7;
+  font-size: var(--font-small);
+  list-style: circle;
+  padding-left: 1.1em;
+}
+
+form {
+  display: flex;
+}
+
+.btn {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+  outline: none;
+  margin-right: 0.5em;
+  transition: transform 300ms ease-in;
+}
+
+.btn.create {
+  font-size: var(--font-regular);
+  font-weight: 900;
+}
+
+.btn.create:hover {
+  transform: scale(1.2);
+  opacity: 0.7;
+}
+
+.new {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: inherit;
+  border-bottom: 1px solid currentColor;
+  font-size: inherit;
+  transition: boder-bottom 250ms ease-in;
+  order: 2;
+}
+
+.list-name {
+  cursor: pointer;
+}
+
+.list-name:hover {
+  opacity: 0.7;
+}
+
+.new.list {
+  font-size: var(--font-xsmall);
+}
+
+.new.list::placeholder {
+  color: var(--color-light);
+  opacity: 0.3;
+}
+
+.new.task::placeholder {
+  opacity: 0.3;
+}
+
+.new:focus {
+  border-bottom-width: 2px;
+}
+
+.new:focus::placeholder {
+  opacity: 0.15;
+}
+
+.active {
+  font-weight: 900;
+  opacity: 0.7;
+}
+
+.todo-list {
+  --spacer: 2rem;
+
+  grid-area: active;
+  background: var(--color-light);
+  color: var(--color-dark);
+  border-radius: 10px;
+}
+
+.todo-header {
+  background-color: #e4e4e4;
+  padding: var(--spacer);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px 10px 0 0;
+}
+.list-title {
+  margin: 0 1em 0 0;
+}
+
+.task-count {
+  margin: 0;
+  font-size: var(--font-xsmall);
+}
+
+.todo-body {
+  padding: var(--spacer);
+  position: relative;
+}
+
+.new-task-creator .create {
+  color: var(--color-primary);
+}
+
+[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+}
+
+.task {
+  position: relative;
+  margin-bottom: 1.25em;
+}
+
+.task label {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.task::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: -0.5em;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.2;
+}
+
+.custom-checkbox {
+  --size: 0.75em;
+  display: inline-block;
+  width: var(--size);
+  height: var(--size);
+  margin-right: var(--size);
+  cursor: pointer;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  transform: scale(1);
+  transition: transform 300ms ease-in-out;
+}
+
+.task:hover .custom-checkbox,
+[type="checkbox"]:focus + label .custom-checkbox {
+  color: var(--color-primary);
+  transform: scale(1.1);
+}
+
+[type="checkbox"]:checked + label .custom-checkbox {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: inset 0 0 0 2px white;
+}
+
+[type="checkbox"]:checked + label {
+  opacity: 0.5;
+}
+
+.task label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  left: 1.5em;
+  top: 50%;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 150ms ease-in-out;
+}
+
+[type="checkbox"]:checked + label::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.delete-task {
+  display: flex;
+  justify-content: space-evenly;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: -35px;
+  color: var(--color-light);
+}
+
+.btn.delete {
+  opacity: 0.7;
+  font-size: var(--font-small);
+}
+
+.btn.delete:hover {
+  color: var(--color-warning);
 }
